@@ -15,6 +15,8 @@ class Channel:
 Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API.
         """
         self.channel_id = channel_id
+    def __repr__(self):
+        return f'Channel(channel_id={self.channel_id})'
 
     def print_info(self):
         """
