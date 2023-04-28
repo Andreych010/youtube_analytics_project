@@ -33,7 +33,9 @@ class Channel:
         '''
 Возвращает информацию об обьекте в текстовом формате
         '''
-        return f'{self.__class__.__name__}({self.channel_id})'
+        return f'{self.__class__.__name__}({self.channel_id}, {self._title}, ' \
+               f'{self._description}, {self._url}, {self._subscriber_count}, ' \
+               f'{self._video_count}, {self._viewCount})'
 
     def __str__(self):
         '''
