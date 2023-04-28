@@ -25,12 +25,65 @@ class Channel:
         self._title = general_data['snippet']['title']
         self._description = general_data['snippet']['description']
         self._url = 'https://www.youtube.com/channel/' + self.__channel_id
-        self._subscriber_count = general_data['statistics']['subscriberCount']
+        self._subscriber_count = int(general_data['statistics']['subscriberCount'])
         self._video_count = general_data['statistics']['videoCount']
         self._viewCount = general_data['statistics']['viewCount']
 
     def __repr__(self):
-        return f'Channel(channel_id={self.channel_id})'
+        '''
+Возвращает информацию об обьекте в текстовом формате
+        '''
+        return f'{self.__class__.__name__}({self.channel_id})'
+
+    def __str__(self):
+        '''
+Возвращает название канала и ссылку на канал
+        '''
+        return f"{self._title} ({self._url})"
+
+    def __add__(self, other):
+        '''
+Возвращает сумму кол-ва подписчиков двух каналов
+        '''
+        return self._subscriber_count + other._subscriber_count
+
+    def __sub__(self, other):
+        '''
+Возвращает разность кол-ва подписчиков двух каналов
+        '''
+        return self._subscriber_count - other._subscriber_count
+
+    def __gt__(self, other):
+        '''
+Сравнивает кол-во подписчико двух каналов
+        '''
+        if self._subscriber_count > other._subscriber_count:
+            return True
+        return False
+
+    def __ge__(self, other):
+        '''
+Сравнивает кол-во подписчико двух каналов
+        '''
+        if self._subscriber_count >= other._subscriber_count:
+            return True
+        return False
+
+    def __lt__(self, other):
+        '''
+Сравнивает кол-во подписчико двух каналов
+        '''
+        if self._subscriber_count < other._subscriber_count:
+            return True
+        return False
+
+    def __le__(self, other):
+        '''
+Сравнивает кол-во подписчико двух каналов
+        '''
+        if self._subscriber_count <= other._subscriber_count:
+            return True
+        return False
 
     def print_info(self):
         """
