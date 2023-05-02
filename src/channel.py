@@ -39,7 +39,7 @@ class Channel:
 
     def __str__(self):
         '''
-Возвращает название канала и ссылку на канал
+        Возвращает название канала и ссылку на канал
         '''
         return f"{self._title} ({self._url})"
 
@@ -57,7 +57,7 @@ class Channel:
 
     def __gt__(self, other):
         '''
-Сравнивает кол-во подписчико двух каналов
+        Сравнивает кол-во подписчико двух каналов
         '''
         if self._subscriber_count > other._subscriber_count:
             return True
@@ -97,7 +97,7 @@ class Channel:
     @property
     def channel_id(self):
         '''
-    возвращает id канала
+        возвращает id канала
         '''
         return self.__channel_id
 
