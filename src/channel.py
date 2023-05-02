@@ -7,14 +7,14 @@ from googleapiclient.discovery import build
 
 class Channel:
     """
-Класс для ютуб-канала
+    Класс для ютуб-канала
     """
     api_key: str = os.getenv('YT_API_KEY')
     youtube = build('youtube', 'v3', developerKey=api_key)
 
     def __init__(self, channel_id):
         """
-Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API.
+        Экземпляр инициализирует id канала. Дальше все данные будут подтягиваться по API.
         """
         self.__channel_id = channel_id
 
@@ -31,7 +31,7 @@ class Channel:
 
     def __repr__(self):
         '''
-Возвращает информацию об обьекте в текстовом формате
+        Возвращает информацию об обьекте в текстовом формате
         '''
         return f'{self.__class__.__name__}({self.channel_id}, {self._title}, ' \
                f'{self._description}, {self._url}, {self._subscriber_count}, ' \
@@ -45,13 +45,13 @@ class Channel:
 
     def __add__(self, other):
         '''
-Возвращает сумму кол-ва подписчиков двух каналов
+        Возвращает сумму кол-ва подписчиков двух каналов
         '''
         return self._subscriber_count + other._subscriber_count
 
     def __sub__(self, other):
         '''
-Возвращает разность кол-ва подписчиков двух каналов
+        Возвращает разность кол-ва подписчиков двух каналов
         '''
         return self._subscriber_count - other._subscriber_count
 
@@ -65,7 +65,7 @@ class Channel:
 
     def __ge__(self, other):
         '''
-Сравнивает кол-во подписчико двух каналов
+        Сравнивает кол-во подписчико двух каналов
         '''
         if self._subscriber_count >= other._subscriber_count:
             return True
@@ -73,7 +73,7 @@ class Channel:
 
     def __lt__(self, other):
         '''
-Сравнивает кол-во подписчико двух каналов
+        Сравнивает кол-во подписчико двух каналов
         '''
         if self._subscriber_count < other._subscriber_count:
             return True
@@ -81,7 +81,7 @@ class Channel:
 
     def __le__(self, other):
         '''
-Сравнивает кол-во подписчико двух каналов
+        Сравнивает кол-во подписчико двух каналов
         '''
         if self._subscriber_count <= other._subscriber_count:
             return True
@@ -89,7 +89,7 @@ class Channel:
 
     def print_info(self):
         """
-Выводит в консоль информацию о канале.
+        Выводит в консоль информацию о канале.
         """
         channel = self.youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
         print(json.dumps(channel, indent=2, ensure_ascii=False))
