@@ -1,35 +1,52 @@
 import os
 from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
 
 class Video:
 
-    def __init__(self, video):
+    def __init__(self, video_id):
+
         '''
         инициализация класса по id видео,
         названию, количество просмотров и лайков
         '''
         api_key: str = os.getenv('YT_API_KEY')
         youtube = build('youtube', 'v3', developerKey=api_key)
-        self.video = youtube.videos().list(id=video, part='snippet,contentDetails,statistics').execute()
-        self.video_id = self.video["items"][0]["id"]
-        self.video_title = self.video["items"][0]["snippet"]["title"]
-        self.video_views = self.video["items"][0]["statistics"]["viewCount"]
-        self.video_likes = self.video["items"][0]["statistics"]["likeCount"]
+        try:
+            self.video_id = youtube.videos().list(id=video_id, part='snippet,contentDetails,statistics').execute()
+            self.url = f'https://youtu.be/{self.video_id}'
+            self.title = self.video_id["items"][0]["snippet"]["title"]
+            self.video = self.video_id["items"][0]["id"]
+            self.video_views = self.video_id["items"][0]["statistics"]["viewCount"]
+            self.like_count = self.video_id["items"][0]["statistics"]["likeCount"]
+        except IndexError:
+            self.url = None
+            self.video = None
+            self.title = None
+            self.video_views = None
+            self.like_count = None
+        except HttpError:
+            self.video_id = video_id
+            self.url = None
+            self.video = None
+            self.title = None
+            self.video_views = None
+            self.like_count = None
+
 
     def __repr__(self):
         '''
         возвращает информацию об обьекте в текстовом формате
         '''
-        return f"{self.__class__.__name__}({self.video}, {self.video_id}, {self.video_title}," \
-               f"{self.video_title}, {self.video_views}, {self.video_likes})"
+        return f"{self.__class__.__name__}({self.video}, {self.video_id}, {self.title}," \
+               f"{self.title}, {self.video_views}, {self.title})"
 
     def __str__(self):
         '''
         возвращает название канала
         '''
-        return f'{self.video_title}'
-
+        return f'{self.title}'
 
 class PLVideo(Video):
     def __init__(self, video, playlist):
